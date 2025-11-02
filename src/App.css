@@ -338,7 +338,265 @@ body {
   border-bottom-color: #667eea;
 }
 
-/* Responsive */
+/* Stats Section */
+.stats-section {
+  background: white;
+  padding: 3rem 2rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem;
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+/* Portfolio Preview */
+.portfolio-preview {
+  background: #fafafa;
+  padding: 4rem 2rem;
+}
+
+.portfolio-preview h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #667eea;
+}
+
+.section-intro {
+  text-align: center;
+  color: #666;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.portfolio-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: all 0.3s;
+  display: block;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+.badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.portfolio-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.portfolio-card .description {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.tech-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.tech-tag {
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.metrics {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.metric {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.view-link {
+  display: block;
+  margin-top: 1rem;
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  background: #2a2a2a;
+  color: white;
+  padding: 3rem 2rem 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+
+.footer-section h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #667eea;
+}
+
+.footer-section p {
+  margin-bottom: 0.5rem;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.footer-section a {
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+  font-size: 0.95rem;
+}
+
+.footer-section a:hover {
+  color: #667eea;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #444;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.footer-bottom p {
+  margin-bottom: 0.5rem;
+}
+
+/* Retry Button */
+.retry-button {
+  margin-top: 1rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.retry-button:hover:not(:disabled) {
+  background: #5568d3;
+}
+
+.retry-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeInSlide 0.4s ease-out;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cta-text {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* Mobile Responsive Improvements */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2rem;
@@ -348,7 +606,7 @@ body {
     font-size: 1.2rem;
   }
 
-  .demos h2, .about h2 {
+  .demos h2, .about h2, .portfolio-preview h2 {
     font-size: 2rem;
   }
 
@@ -362,5 +620,33 @@ body {
 
   .separator {
     display: none;
+  }
+
+  .demo-card {
+    padding: 1.5rem;
+  }
+
+  .demo-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.05rem;
+  }
+
+  textarea, input {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }

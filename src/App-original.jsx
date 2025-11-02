@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 const API_URL = 'https://projectlavos-backend.onrender.com'
@@ -7,11 +7,8 @@ function App() {
   return (
     <div className="app">
       <Hero />
-      <StatsSection />
       <Demos />
-      <PortfolioPreview />
       <About />
-      <Footer />
     </div>
   )
 }
@@ -35,57 +32,6 @@ function Hero() {
   )
 }
 
-function StatsSection() {
-  const [counts, setCounts] = useState({
-    demos: 0,
-    response: 0,
-    projects: 0
-  })
-
-  useEffect(() => {
-    const duration = 2000
-    const steps = 60
-    const interval = duration / steps
-
-    let step = 0
-    const timer = setInterval(() => {
-      step++
-      const progress = step / steps
-
-      setCounts({
-        demos: Math.round(3 * progress),
-        response: Math.round(100 * progress),
-        projects: Math.round(8 * progress)
-      })
-
-      if (step >= steps) clearInterval(timer)
-    }, interval)
-
-    return () => clearInterval(timer)
-  }, [])
-
-  return (
-    <section className="stats-section">
-      <div className="stats-grid">
-        <StatCard number={counts.demos} label="Live Demos" icon="⚡" />
-        <StatCard number={`<${counts.response}ms`} label="Response Time" icon="🚀" />
-        <StatCard number={counts.projects} label="GitHub Projects" icon="💼" />
-        <StatCard number="Louisville" label="Local Focus" icon="📍" />
-      </div>
-    </section>
-  )
-}
-
-function StatCard({ number, label, icon }) {
-  return (
-    <div className="stat-card">
-      <div className="stat-icon">{icon}</div>
-      <div className="stat-number">{number}</div>
-      <div className="stat-label">{label}</div>
-    </div>
-  )
-}
-
 function Demos() {
   return (
     <section className="demos">
@@ -103,33 +49,21 @@ function SentimentDemo() {
   const [text, setText] = useState('')
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   const analyze = async () => {
     if (!text.trim()) return
 
     setLoading(true)
-    setError(null)
-    setResult(null)
-
     try {
       const response = await fetch(`${API_URL}/api/sentiment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text })
       })
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
-      }
-
       const data = await response.json()
       setResult(data)
-    } catch (err) {
-      setError({
-        message: 'Demo server is waking up (first use takes ~30 seconds). Please try again in a moment.',
-        canRetry: true
-      })
+    } catch (error) {
+      setResult({ error: 'Analysis failed. Please try again.' })
     } finally {
       setLoading(false)
     }
@@ -161,22 +95,14 @@ function SentimentDemo() {
         ) : 'Analyze Sentiment'}
       </button>
 
-      {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
-          {error.canRetry && (
-            <button onClick={analyze} className="retry-button" disabled={loading}>
-              Try Again
-            </button>
-          )}
-        </div>
-      )}
-
       {result && !result.error && (
-        <div className={`result sentiment-${result.sentiment} fade-in`}>
+        <div className={`result sentiment-${result.sentiment}`}>
           <strong>Result:</strong> {result.sentiment.toUpperCase()} ({Math.round(result.confidence * 100)}% confidence)
           <p>{result.explanation}</p>
         </div>
+      )}
+      {result && result.error && (
+        <div className="result error">{result.error}</div>
       )}
     </div>
   )
@@ -192,31 +118,19 @@ function LeadScoringDemo() {
   })
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   const scoreLead = async () => {
     setLoading(true)
-    setError(null)
-    setResult(null)
-
     try {
       const response = await fetch(`${API_URL}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(lead)
       })
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
-      }
-
       const data = await response.json()
       setResult(data)
-    } catch (err) {
-      setError({
-        message: 'Demo server is waking up. Please try again in a moment.',
-        canRetry: true
-      })
+    } catch (error) {
+      setResult({ error: 'Scoring failed. Please try again.' })
     } finally {
       setLoading(false)
     }
@@ -282,23 +196,15 @@ function LeadScoringDemo() {
         ) : 'Score Lead'}
       </button>
 
-      {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
-          {error.canRetry && (
-            <button onClick={scoreLead} className="retry-button" disabled={loading}>
-              Try Again
-            </button>
-          )}
-        </div>
-      )}
-
       {result && !result.error && (
-        <div className={`result priority-${result.priority.toLowerCase()} fade-in`}>
+        <div className={`result priority-${result.priority.toLowerCase()}`}>
           <strong>Priority: {result.priority}</strong> (Score: {result.score}/100)
           <p>{result.reasoning}</p>
           <p className="next-action"><strong>Next Action:</strong> {result.next_action}</p>
         </div>
+      )}
+      {result && result.error && (
+        <div className="result error">{result.error}</div>
       )}
     </div>
   )
@@ -312,31 +218,19 @@ function PhishingDemo() {
   })
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   const checkPhishing = async () => {
     setLoading(true)
-    setError(null)
-    setResult(null)
-
     try {
       const response = await fetch(`${API_URL}/api/phishing`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(email)
       })
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
-      }
-
       const data = await response.json()
       setResult(data)
-    } catch (err) {
-      setError({
-        message: 'Demo server is waking up. Please try again in a moment.',
-        canRetry: true
-      })
+    } catch (error) {
+      setResult({ error: 'Detection failed. Please try again.' })
     } finally {
       setLoading(false)
     }
@@ -386,19 +280,8 @@ function PhishingDemo() {
         ) : 'Check for Phishing'}
       </button>
 
-      {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
-          {error.canRetry && (
-            <button onClick={checkPhishing} className="retry-button" disabled={loading}>
-              Try Again
-            </button>
-          )}
-        </div>
-      )}
-
       {result && !result.error && (
-        <div className={`result risk-${result.risk_level.toLowerCase()} fade-in`}>
+        <div className={`result risk-${result.risk_level.toLowerCase()}`}>
           <strong>Risk Level: {result.risk_level}</strong> ({Math.round(result.confidence * 100)}% confidence)
           <ul className="indicators">
             {result.indicators.map((indicator, i) => (
@@ -408,66 +291,10 @@ function PhishingDemo() {
           <p className="recommendation"><strong>Recommendation:</strong> {result.recommendation}</p>
         </div>
       )}
-    </div>
-  )
-}
-
-function PortfolioPreview() {
-  return (
-    <section className="portfolio-preview">
-      <h2>Proven Work</h2>
-      <p className="section-intro">
-        Technical projects demonstrating AI/ML engineering capabilities
-      </p>
-
-      <div className="portfolio-grid">
-        <PortfolioCard
-          title="JasperMatters"
-          url="https://jaspermatters.com"
-          description="Full-stack ML platform with TensorFlow neural networks, semantic job search, and career insights"
-          tech={["TensorFlow", "React", "FastAPI"]}
-          metrics={["4,800 LOC", "134 Features", "3 ML Models"]}
-          badge="LIVE SITE"
-        />
-
-        <PortfolioCard
-          title="PhishGuard ML"
-          url="https://github.com/guitargnarr/phishguard-ml"
-          description="Production phishing detection API with 7-model ensemble and 2,039 engineered features"
-          tech={["7 Models", "2,039 Features", "38/38 Tests"]}
-          metrics={["<20ms", "FastAPI", "Docker Ready"]}
-          badge="OPEN SOURCE"
-        />
-
-        <PortfolioCard
-          title="Mirador"
-          url="https://github.com/guitargnarr/mirador"
-          description="Privacy-first AI orchestration framework for HIPAA-compliant workflows with 64 specialized agents"
-          tech={["25K LOC", "64 Agents", "Ollama"]}
-          metrics={["100% Local", "HIPAA Ready", "pip install"]}
-          badge="PACKAGED"
-        />
-      </div>
-    </section>
-  )
-}
-
-function PortfolioCard({ title, url, description, tech, metrics, badge }) {
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer" className="portfolio-card">
-      <div className="badge">{badge}</div>
-      <h3>{title}</h3>
-      <p className="description">{description}</p>
-      <div className="tech-tags">
-        {tech.map(t => <span key={t} className="tech-tag">{t}</span>)}
-      </div>
-      {metrics && (
-        <div className="metrics">
-          {metrics.map(m => <span key={m} className="metric">{m}</span>)}
-        </div>
+      {result && result.error && (
+        <div className="result error">{result.error}</div>
       )}
-      <span className="view-link">View Project →</span>
-    </a>
+    </div>
   )
 }
 
@@ -485,62 +312,21 @@ function About() {
           practical AI applications - no hype, no inflated promises. Just tools that work.
         </p>
         <div className="proof-section">
-          <h3>Why Work With Me</h3>
+          <h3>Proof of Work</h3>
           <ul>
-            <li>10 years healthcare IT experience (compliance-aware, HIPAA-familiar)</li>
-            <li>Production ML systems deployed (TensorFlow, not just API wrappers)</li>
-            <li>Privacy-first architecture (local AI, data protection)</li>
-            <li>Louisville-based (local service, understand the market)</li>
+            <li><a href="https://jaspermatters.com" target="_blank" rel="noopener noreferrer">jaspermatters.com</a> - Full-stack ML platform (TensorFlow, React, FastAPI)</li>
+            <li><a href="https://github.com/guitargnarr/phishguard-ml" target="_blank" rel="noopener noreferrer">phishguard-ml</a> - 7-model ensemble phishing detector</li>
+            <li><a href="https://github.com/guitargnarr/mirador" target="_blank" rel="noopener noreferrer">mirador</a> - Privacy-first AI orchestration framework</li>
+            <li><a href="https://github.com/guitargnarr" target="_blank" rel="noopener noreferrer">GitHub Portfolio</a> - 8 public repositories</li>
           </ul>
         </div>
         <div className="contact-section">
           <h3>Get in Touch</h3>
           <p>Email: <a href="mailto:matthewdscott7@gmail.com">matthewdscott7@gmail.com</a></p>
-          <p className="cta-text">Free 1-hour AI assessment for Louisville businesses</p>
+          <p>Free 1-hour AI assessment for Louisville businesses</p>
         </div>
       </div>
     </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-section">
-          <h4>Matthew Scott</h4>
-          <p>AI Consultant</p>
-          <p>Louisville, Kentucky</p>
-        </div>
-
-        <div className="footer-section">
-          <h4>Portfolio</h4>
-          <a href="https://jaspermatters.com" target="_blank" rel="noopener noreferrer">JasperMatters</a>
-          <a href="https://github.com/guitargnarr/phishguard-ml" target="_blank" rel="noopener noreferrer">PhishGuard ML</a>
-          <a href="https://github.com/guitargnarr/mirador" target="_blank" rel="noopener noreferrer">Mirador</a>
-          <a href="https://github.com/guitargnarr" target="_blank" rel="noopener noreferrer">GitHub Profile</a>
-        </div>
-
-        <div className="footer-section">
-          <h4>Contact</h4>
-          <a href="mailto:matthewdscott7@gmail.com">matthewdscott7@gmail.com</a>
-          <p>Free 1-hour assessment</p>
-          <p>Louisville, KY</p>
-        </div>
-
-        <div className="footer-section">
-          <h4>Built With</h4>
-          <p>React + Vite</p>
-          <p>FastAPI + Python</p>
-          <p>Vercel + Render</p>
-        </div>
-      </div>
-
-      <div className="footer-bottom">
-        <p>&copy; 2025 Matthew Scott. All rights reserved.</p>
-        <p>Project Lavos - Practical AI for Louisville businesses</p>
-      </div>
-    </footer>
   )
 }
 
