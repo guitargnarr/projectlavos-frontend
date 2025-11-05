@@ -95,6 +95,7 @@ function Demos() {
       <SentimentDemo />
       <LeadScoringDemo />
       <PhishingDemo />
+      <JobTrackerDemo />
     </section>
   )
 }
@@ -500,6 +501,47 @@ function About() {
         </div>
       </div>
     </section>
+  )
+}
+
+function JobTrackerDemo() {
+  return (
+    <div className="demo-card">
+      <h3>📊 Job Application Tracker</h3>
+      <p className="demo-description">Full-stack application management with analytics</p>
+      <p className="use-case">Use case: Enterprise CRUD operations, data visualization, real-time analytics</p>
+
+      <div className="result">
+        <div style={{ marginBottom: '1rem' }}>
+          <strong>✨ Features:</strong>
+          <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+            <li>Full CRUD operations (Create, Read, Update, Delete)</li>
+            <li>Advanced filtering, search, and sorting</li>
+            <li>Interactive data visualization charts</li>
+            <li>Responsive design with Neubrutalism aesthetic</li>
+            <li>FastAPI backend + React frontend</li>
+          </ul>
+        </div>
+
+        <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '8px', color: 'white' }}>
+          <strong style={{ display: 'block', marginBottom: '0.5rem' }}>🎯 Live Demo Available</strong>
+          <p style={{ marginBottom: '1rem', opacity: 0.9 }}>Interactive demo showcasing full-stack development capabilities</p>
+          <a
+            href="https://jobtracker-frontend-psi.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="demo-button"
+            style={{ background: 'white', color: '#667eea', display: 'inline-block', padding: '0.75rem 1.5rem', borderRadius: '6px', textDecoration: 'none', fontWeight: 'bold' }}
+          >
+            Launch Job Tracker →
+          </a>
+        </div>
+
+        <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6c757d' }}>
+          <strong>Tech Stack:</strong> React, FastAPI, Vite, Tailwind CSS v4, Framer Motion
+        </div>
+      </div>
+    </div>
   )
 }
 
