@@ -53,7 +53,7 @@ function StatsSection() {
       const progress = step / steps
 
       setCounts({
-        demos: Math.round(3 * progress),
+        demos: Math.round(4 * progress),
         response: Math.round(100 * progress),
         projects: Math.round(8 * progress)
       })
@@ -95,6 +95,7 @@ function Demos() {
       <SentimentDemo />
       <LeadScoringDemo />
       <PhishingDemo />
+      <PromptEngineeringDemo />
       <JobTrackerDemo />
     </section>
   )
@@ -413,6 +414,236 @@ function PhishingDemo() {
   )
 }
 
+function PromptEngineeringDemo() {
+  const [formData, setFormData] = useState({
+    technique: 'zero-shot',
+    use_case: 'email',
+    context: '',
+    tone: 'professional'
+  })
+  const [result, setResult] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [activeTab, setActiveTab] = useState('result')
+  const [copied, setCopied] = useState(false)
+
+  const generate = async () => {
+    if (!formData.context.trim() || formData.context.length < 10) {
+      setError({ message: 'Please provide at least 10 characters of context' })
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+    setResult(null)
+    setActiveTab('result')
+
+    try {
+      const response = await fetch(`${API_URL}/api/prompt-engineering`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setResult(data)
+    } catch (err) {
+      setError({
+        message: 'Demo server is waking up (~30 seconds first use). Please try again.',
+        canRetry: true
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const techniqueDescriptions = {
+    'zero-shot': 'Direct instruction without examples - fastest approach',
+    'few-shot': 'Include examples to guide output format and style',
+    'chain-of-thought': 'Request step-by-step reasoning for complex tasks',
+    'role-based': 'Assign expert persona for specialized content',
+    'structured': 'Specify exact output format with clear schema'
+  }
+
+  return (
+    <div className="demo-card prompt-demo">
+      <h3>🧠 Prompt Engineering Playground</h3>
+      <p className="demo-description">Advanced LLM prompt techniques demonstrated</p>
+      <p className="use-case">Use case: Content generation, email drafting, report summaries</p>
+
+      <div className="form-grid">
+        <div className="form-group">
+          <label>Content Type:</label>
+          <select
+            value={formData.use_case}
+            onChange={(e) => setFormData({...formData, use_case: e.target.value})}
+            className="demo-input"
+          >
+            <option value="email">Email</option>
+            <option value="blog">Blog Post</option>
+            <option value="summary">Summary</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Tone:</label>
+          <select
+            value={formData.tone}
+            onChange={(e) => setFormData({...formData, tone: e.target.value})}
+            className="demo-input"
+          >
+            <option value="professional">Professional</option>
+            <option value="technical">Technical</option>
+            <option value="casual">Casual</option>
+            <option value="persuasive">Persuasive</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="form-group">
+        <label>Context (what to write about):</label>
+        <textarea
+          value={formData.context}
+          onChange={(e) => setFormData({...formData, context: e.target.value})}
+          placeholder="Example: Write an email to a client explaining a project delay due to supply chain issues. Keep it professional and reassuring."
+          rows="3"
+          className="demo-input"
+        />
+        <small className="char-count">{formData.context.length} / 2000 characters</small>
+      </div>
+
+      <div className="form-group technique-selector">
+        <label>Prompt Engineering Technique:</label>
+        <div className="technique-options">
+          {Object.keys(techniqueDescriptions).map((tech) => (
+            <label key={tech} className="technique-radio">
+              <input
+                type="radio"
+                value={tech}
+                checked={formData.technique === tech}
+                onChange={(e) => setFormData({...formData, technique: e.target.value})}
+              />
+              <span className="technique-label">
+                <strong>{tech.replace('-', ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</strong>
+                <small>{techniqueDescriptions[tech]}</small>
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <button
+        onClick={generate}
+        disabled={loading || !formData.context.trim() || formData.context.length < 10}
+        className="demo-button"
+      >
+        {loading ? (
+          <>
+            <svg className="inline w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+            </svg>
+            Generating...
+          </>
+        ) : 'Generate & Explain'}
+      </button>
+
+      {error && (
+        <div className="result error">
+          <strong>⚠️ {error.message}</strong>
+          {error.canRetry && (
+            <button onClick={generate} className="retry-button" disabled={loading}>
+              Try Again
+            </button>
+          )}
+        </div>
+      )}
+
+      {result && (
+        <div className="prompt-results fade-in">
+          <div className="tabs">
+            <button
+              className={`tab ${activeTab === 'result' ? 'active' : ''}`}
+              onClick={() => setActiveTab('result')}
+            >
+              📝 Generated Content
+            </button>
+            <button
+              className={`tab ${activeTab === 'prompt' ? 'active' : ''}`}
+              onClick={() => setActiveTab('prompt')}
+            >
+              🔧 Prompt Used
+            </button>
+            <button
+              className={`tab ${activeTab === 'explanation' ? 'active' : ''}`}
+              onClick={() => setActiveTab('explanation')}
+            >
+              💡 Technique Explained
+            </button>
+          </div>
+
+          <div className="tab-content">
+            {activeTab === 'result' && (
+              <div className="tab-panel">
+                <div className="content-header">
+                  <strong>Technique: {result.technique_name}</strong>
+                  <button
+                    onClick={() => copyToClipboard(result.generated_content)}
+                    className="copy-button"
+                  >
+                    {copied ? '✓ Copied!' : '📋 Copy'}
+                  </button>
+                </div>
+                <div className="generated-content">{result.generated_content}</div>
+              </div>
+            )}
+
+            {activeTab === 'prompt' && (
+              <div className="tab-panel">
+                <div className="prompt-section">
+                  <strong>System Message (Role Definition):</strong>
+                  <pre className="prompt-code">{result.prompt_used.system}</pre>
+                </div>
+                <div className="prompt-section">
+                  <strong>User Message (Task Instructions):</strong>
+                  <pre className="prompt-code">{result.prompt_used.user}</pre>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(`System: ${result.prompt_used.system}\n\nUser: ${result.prompt_used.user}`)}
+                  className="copy-button"
+                >
+                  {copied ? '✓ Copied!' : '📋 Copy Full Prompt'}
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'explanation' && (
+              <div className="tab-panel">
+                <div className="explanation-content">
+                  {result.explanation.split('\n').map((line, i) => (
+                    <p key={i}>{line}</p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function PortfolioPreview() {
   return (
     <section className="portfolio-preview">
@@ -447,6 +678,15 @@ function PortfolioPreview() {
           tech={["25K LOC", "64 Agents", "Ollama"]}
           metrics={["100% Local", "HIPAA Ready", "pip install"]}
           badge="PACKAGED"
+        />
+
+        <PortfolioCard
+          title="Prompt Engineering Showcase"
+          url="https://github.com/guitargnarr/prompt-engineering-showcase"
+          description="Advanced LLM prompt techniques with real production examples. Interactive playground demonstrates zero-shot, few-shot, chain-of-thought, role-based, and structured output prompting"
+          tech={["Zero-Shot", "Few-Shot", "Chain-of-Thought"]}
+          metrics={["5 Techniques", "Live Demo", "Real Examples"]}
+          badge="INTERACTIVE"
         />
       </div>
     </section>
