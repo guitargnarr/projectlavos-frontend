@@ -18,18 +18,53 @@ function App() {
 
 function Hero() {
   return (
-    <header className="hero">
-      <h1>Matthew Scott</h1>
-      <p className="tagline">AI Consultant • Louisville, KY</p>
-      <p className="mission">Practical AI tools for real business problems</p>
-      <div className="proof-links">
-        <a href="https://jaspermatters.com" target="_blank" rel="noopener noreferrer">
-          Portfolio: jaspermatters.com
-        </a>
-        <span className="separator">•</span>
-        <a href="https://github.com/guitargnarr" target="_blank" rel="noopener noreferrer">
-          GitHub: guitargnarr
-        </a>
+    <header className="bg-lavos-blue text-white py-20 px-6 relative overflow-hidden">
+      {/* Subtle decorative elements */}
+      <div className="absolute top-8 left-8 w-24 h-24 bg-lavos-orange rounded-full opacity-10"></div>
+      <div className="absolute bottom-8 right-8 w-40 h-40 bg-lavos-green rounded-full opacity-10"></div>
+
+      {/* Main content - flex column for proper stacking */}
+      <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6">
+
+        {/* PRIMARY FOCAL POINT: Name with full brutal treatment */}
+        <div className="transform -rotate-2">
+          <h1 className="text-5xl md:text-7xl font-black px-12 py-6 bg-white text-lavos-blue border-4 border-lavos-black shadow-brutal-lg">
+            Matthew Scott
+          </h1>
+        </div>
+
+        {/* SECONDARY: Clean tagline - let H1 shine */}
+        <p className="text-2xl md:text-3xl font-bold mt-4 text-white border-b-4 border-lavos-orange pb-2">
+          AI Consultant • Louisville, KY
+        </p>
+
+        {/* TERTIARY: Mission statement - subtle */}
+        <p className="text-lg md:text-xl text-white/90 font-medium max-w-2xl text-center">
+          Practical AI tools for real business problems
+        </p>
+
+        {/* CTAs: Moderate styling, don't compete with H1 */}
+        <nav className="flex gap-6 items-center flex-wrap justify-center mt-8">
+          <a
+            href="https://jaspermatters.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-lavos-blue px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-base hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 no-underline"
+          >
+            Portfolio →
+          </a>
+
+          <span className="text-white/40 text-xl">•</span>
+
+          <a
+            href="https://github.com/guitargnarr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-lavos-green text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-base hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 no-underline"
+          >
+            GitHub →
+          </a>
+        </nav>
       </div>
     </header>
   )
@@ -65,38 +100,49 @@ function StatsSection() {
   }, [])
 
   return (
-    <section className="stats-section">
-      <div className="stats-grid">
-        <StatCard number={counts.demos} label="Live Demos" icon="⚡" />
-        <StatCard number={`<${counts.response}ms`} label="Response Time" icon="🚀" />
-        <StatCard number={counts.projects} label="GitHub Projects" icon="💼" />
-        <StatCard number="Louisville" label="Local Focus" icon="📍" />
+    <section className="py-12 px-8 bg-white">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatCard number={counts.demos} label="Live Demos" icon="⚡" bgColor="bg-lavos-blue" />
+        <StatCard number={`<${counts.response}ms`} label="Response Time" icon="🚀" bgColor="bg-lavos-orange" />
+        <StatCard number={counts.projects} label="GitHub Projects" icon="💼" bgColor="bg-lavos-green" />
+        <StatCard number="Louisville" label="Local Focus" icon="📍" bgColor="bg-lavos-blue-light" />
       </div>
     </section>
   )
 }
 
-function StatCard({ number, label, icon }) {
+function StatCard({ number, label, icon, bgColor }) {
   return (
-    <div className="stat-card">
-      <div className="stat-icon">{icon}</div>
-      <div className="stat-number">{number}</div>
-      <div className="stat-label">{label}</div>
+    <div className={`${bgColor} text-white p-6 border-3 border-lavos-black shadow-brutal-sm hover:-translate-y-1 hover:shadow-brutal transition-all duration-200`}>
+      <div className="text-4xl mb-3">{icon}</div>
+      <div className="text-3xl font-bold mb-2">{number}</div>
+      <div className="text-sm font-semibold uppercase tracking-wide">{label}</div>
     </div>
   )
 }
 
 function Demos() {
   return (
-    <section className="demos">
-      <h2>Try the Demos</h2>
-      <p className="demos-intro">Interactive demonstrations of AI capabilities for Louisville businesses</p>
+    <section className="py-16 px-6 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        {/* Clean section header - no brutal styling needed */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 border-b-4 border-lavos-orange inline-block pb-2">
+            Try the Demos
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mt-6">
+            Interactive demonstrations of AI capabilities for Louisville businesses
+          </p>
+        </div>
 
-      <SentimentDemo />
-      <LeadScoringDemo />
-      <PhishingDemo />
-      <PromptEngineeringDemo />
-      <JobTrackerDemo />
+        <div className="space-y-8">
+          <SentimentDemo />
+          <LeadScoringDemo />
+          <PhishingDemo />
+          <PromptEngineeringDemo />
+          <JobTrackerDemo />
+        </div>
+      </div>
     </section>
   )
 }
@@ -106,6 +152,10 @@ function SentimentDemo() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const loadSampleReview = () => {
+    setText("We had dinner at Jack Fry's last night and it was phenomenal! The bourbon-glazed pork chop was cooked to perfection, and the service was attentive without being overbearing. A true Louisville gem - highly recommend for special occasions!")
+  }
 
   const analyze = async () => {
     if (!text.trim()) return
@@ -138,20 +188,27 @@ function SentimentDemo() {
   }
 
   return (
-    <div className="demo-card">
-      <h3>🎯 Sentiment Analysis</h3>
-      <p className="demo-description">Understand what your customers are really saying</p>
-      <p className="use-case">Use case: Restaurant reviews, customer feedback, social media</p>
+    <div className="bg-white border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 p-8 rounded-sm">
+      <h3 className="text-2xl font-bold mb-2 text-gray-900">🎯 Sentiment Analysis</h3>
+      <p className="text-base font-medium text-gray-700 mb-1">Understand what your customers are really saying</p>
+      <p className="text-sm text-gray-500 mb-6">Use case: Restaurant reviews, customer feedback, social media</p>
+
+      <button
+        onClick={loadSampleReview}
+        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+      >
+        💡 Try Louisville Restaurant Review
+      </button>
 
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Enter customer review or feedback... (e.g., 'This restaurant has amazing service!')"
         rows="4"
-        className="demo-input"
+        className="w-full p-4 border-2 border-gray-300 rounded-sm mb-4 font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
       />
 
-      <button onClick={analyze} disabled={loading || !text.trim()} className="demo-button">
+      <button onClick={analyze} disabled={loading || !text.trim()} className="bg-lavos-blue text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm">
         {loading ? (
           <>
             <svg className="inline w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
@@ -164,10 +221,10 @@ function SentimentDemo() {
       </button>
 
       {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
+        <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
+          <strong className="text-red-700 block mb-2">⚠️ {error.message}</strong>
           {error.canRetry && (
-            <button onClick={analyze} className="retry-button" disabled={loading}>
+            <button onClick={analyze} className="mt-2 bg-red-600 text-white px-4 py-2 rounded-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50" disabled={loading}>
               Try Again
             </button>
           )}
@@ -175,9 +232,13 @@ function SentimentDemo() {
       )}
 
       {result && !result.error && (
-        <div className={`result sentiment-${result.sentiment} fade-in`}>
-          <strong>Result:</strong> {result.sentiment.toUpperCase()} ({Math.round(result.confidence * 100)}% confidence)
-          <p>{result.explanation}</p>
+        <div className="mt-6 bg-lavos-green/10 border-l-4 border-lavos-green p-6 rounded-sm">
+          <div className="flex items-baseline gap-2 mb-2">
+            <strong className="text-lavos-green text-lg font-bold">Result:</strong>
+            <span className="text-gray-900 font-bold text-xl">{result.sentiment.toUpperCase()}</span>
+            <span className="text-gray-600 text-sm">({Math.round(result.confidence * 100)}% confidence)</span>
+          </div>
+          <p className="text-gray-700 leading-relaxed">{result.explanation}</p>
         </div>
       )}
     </div>
@@ -195,6 +256,16 @@ function LeadScoringDemo() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const loadSampleData = () => {
+    setLead({
+      name: 'Sarah Johnson',
+      email: 'sarah.j@techstartup.com',
+      company: 'Louisville Tech Startup',
+      budget: '25k',
+      timeline: 'ASAP'
+    })
+  }
 
   const scoreLead = async () => {
     setLoading(true)
@@ -225,53 +296,60 @@ function LeadScoringDemo() {
   }
 
   return (
-    <div className="demo-card">
-      <h3>📊 Lead Scoring</h3>
-      <p className="demo-description">Prioritize your best prospects automatically</p>
-      <p className="use-case">Use case: Real estate, B2B sales, any sales operation</p>
+    <div className="bg-white border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 p-8 rounded-sm">
+      <h3 className="text-2xl font-bold mb-2 text-gray-900">📊 Lead Scoring</h3>
+      <p className="text-base font-medium text-gray-700 mb-1">Prioritize your best prospects automatically</p>
+      <p className="text-sm text-gray-500 mb-6">Use case: Real estate, B2B sales, any sales operation</p>
 
-      <div className="form-grid">
+      <button
+        onClick={loadSampleData}
+        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+      >
+        💡 Try Sample Lead
+      </button>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <input
           type="text"
           placeholder="Name *"
           value={lead.name}
           onChange={(e) => setLead({...lead, name: e.target.value})}
-          className="demo-input"
+          className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-orange focus:ring-2 focus:ring-lavos-orange/20 transition-all"
         />
         <input
           type="email"
           placeholder="Email *"
           value={lead.email}
           onChange={(e) => setLead({...lead, email: e.target.value})}
-          className="demo-input"
+          className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-orange focus:ring-2 focus:ring-lavos-orange/20 transition-all"
         />
         <input
           type="text"
           placeholder="Company"
           value={lead.company}
           onChange={(e) => setLead({...lead, company: e.target.value})}
-          className="demo-input"
+          className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-orange focus:ring-2 focus:ring-lavos-orange/20 transition-all"
         />
         <input
           type="text"
           placeholder="Budget (e.g., 10k, 50k)"
           value={lead.budget}
           onChange={(e) => setLead({...lead, budget: e.target.value})}
-          className="demo-input"
+          className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-orange focus:ring-2 focus:ring-lavos-orange/20 transition-all"
         />
         <input
           type="text"
           placeholder="Timeline (e.g., ASAP, this month)"
           value={lead.timeline}
           onChange={(e) => setLead({...lead, timeline: e.target.value})}
-          className="demo-input full-width"
+          className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-orange focus:ring-2 focus:ring-lavos-orange/20 transition-all md:col-span-2"
         />
       </div>
 
       <button
         onClick={scoreLead}
         disabled={loading || !lead.name || !lead.email}
-        className="demo-button"
+        className="bg-lavos-orange text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
       >
         {loading ? (
           <>
@@ -285,10 +363,10 @@ function LeadScoringDemo() {
       </button>
 
       {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
+        <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
+          <strong className="text-red-700 block mb-2">⚠️ {error.message}</strong>
           {error.canRetry && (
-            <button onClick={scoreLead} className="retry-button" disabled={loading}>
+            <button onClick={scoreLead} className="mt-2 bg-red-600 text-white px-4 py-2 rounded-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50" disabled={loading}>
               Try Again
             </button>
           )}
@@ -296,10 +374,13 @@ function LeadScoringDemo() {
       )}
 
       {result && !result.error && (
-        <div className={`result priority-${result.priority.toLowerCase()} fade-in`}>
-          <strong>Priority: {result.priority}</strong> (Score: {result.score}/100)
-          <p>{result.reasoning}</p>
-          <p className="next-action"><strong>Next Action:</strong> {result.next_action}</p>
+        <div className="mt-6 bg-lavos-orange/10 border-l-4 border-lavos-orange p-6 rounded-sm">
+          <div className="flex items-baseline gap-2 mb-2">
+            <strong className="text-lavos-orange text-lg font-bold">Priority: {result.priority}</strong>
+            <span className="text-gray-600 text-sm">(Score: {result.score}/100)</span>
+          </div>
+          <p className="text-gray-700 leading-relaxed mb-3">{result.reasoning}</p>
+          <p className="text-gray-900 font-semibold"><strong>Next Action:</strong> {result.next_action}</p>
         </div>
       )}
     </div>
@@ -315,6 +396,14 @@ function PhishingDemo() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const loadSamplePhishing = () => {
+    setEmail({
+      sender: 'urgent-security@verify-account-now.com',
+      subject: 'URGENT: Verify your account within 24 hours',
+      body: 'Dear valued customer,\n\nYour account has been temporarily suspended due to unusual activity. Click the link below immediately to verify your identity and restore access:\n\nhttps://verify-secure-login.com/confirm\n\nFailure to act within 24 hours will result in permanent account closure.\n\nBest regards,\nSecurity Team'
+    })
+  }
 
   const checkPhishing = async () => {
     setLoading(true)
@@ -345,37 +434,44 @@ function PhishingDemo() {
   }
 
   return (
-    <div className="demo-card">
-      <h3>🛡️ Phishing Detection</h3>
-      <p className="demo-description">Protect your team from email threats</p>
-      <p className="use-case">Use case: Legal firms, financial services, any business with email risk</p>
+    <div className="bg-white border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 p-8 rounded-sm">
+      <h3 className="text-2xl font-bold mb-2 text-gray-900">🛡️ Phishing Detection</h3>
+      <p className="text-base font-medium text-gray-700 mb-1">Protect your team from email threats</p>
+      <p className="text-sm text-gray-500 mb-6">Use case: Legal firms, financial services, any business with email risk</p>
+
+      <button
+        onClick={loadSamplePhishing}
+        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+      >
+        💡 Try Phishing Example
+      </button>
 
       <input
         type="email"
         placeholder="From: sender@example.com"
         value={email.sender}
         onChange={(e) => setEmail({...email, sender: e.target.value})}
-        className="demo-input"
+        className="w-full p-3 border-2 border-gray-300 rounded-sm mb-4 font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
       />
       <input
         type="text"
         placeholder="Subject: (e.g., 'Urgent: Verify your account')"
         value={email.subject}
         onChange={(e) => setEmail({...email, subject: e.target.value})}
-        className="demo-input"
+        className="w-full p-3 border-2 border-gray-300 rounded-sm mb-4 font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
       />
       <textarea
         value={email.body}
         onChange={(e) => setEmail({...email, body: e.target.value})}
         placeholder="Email body... (e.g., 'Dear customer, click here to verify your account immediately')"
         rows="4"
-        className="demo-input"
+        className="w-full p-4 border-2 border-gray-300 rounded-sm mb-4 font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
       />
 
       <button
         onClick={checkPhishing}
         disabled={loading || !email.sender || !email.subject || !email.body}
-        className="demo-button"
+        className="bg-lavos-blue text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
       >
         {loading ? (
           <>
@@ -389,10 +485,10 @@ function PhishingDemo() {
       </button>
 
       {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
+        <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
+          <strong className="text-red-700 block mb-2">⚠️ {error.message}</strong>
           {error.canRetry && (
-            <button onClick={checkPhishing} className="retry-button" disabled={loading}>
+            <button onClick={checkPhishing} className="mt-2 bg-red-600 text-white px-4 py-2 rounded-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50" disabled={loading}>
               Try Again
             </button>
           )}
@@ -400,14 +496,19 @@ function PhishingDemo() {
       )}
 
       {result && !result.error && (
-        <div className={`result risk-${result.risk_level.toLowerCase()} fade-in`}>
-          <strong>Risk Level: {result.risk_level}</strong> ({Math.round(result.confidence * 100)}% confidence)
-          <ul className="indicators">
+        <div className={`mt-6 ${result.risk_level === 'HIGH' ? 'bg-red-50 border-l-4 border-red-500' : result.risk_level === 'MEDIUM' ? 'bg-yellow-50 border-l-4 border-yellow-500' : 'bg-green-50 border-l-4 border-green-500'} p-6 rounded-sm`}>
+          <div className="flex items-baseline gap-2 mb-3">
+            <strong className={`text-lg font-bold ${result.risk_level === 'HIGH' ? 'text-red-700' : result.risk_level === 'MEDIUM' ? 'text-yellow-700' : 'text-green-700'}`}>
+              Risk Level: {result.risk_level}
+            </strong>
+            <span className="text-gray-600 text-sm">({Math.round(result.confidence * 100)}% confidence)</span>
+          </div>
+          <ul className="list-disc list-inside space-y-1 mb-3 text-gray-700">
             {result.indicators.map((indicator, i) => (
               <li key={i}>{indicator}</li>
             ))}
           </ul>
-          <p className="recommendation"><strong>Recommendation:</strong> {result.recommendation}</p>
+          <p className="text-gray-900 font-semibold"><strong>Recommendation:</strong> {result.recommendation}</p>
         </div>
       )}
     </div>
@@ -426,6 +527,13 @@ function PromptEngineeringDemo() {
   const [error, setError] = useState(null)
   const [activeTab, setActiveTab] = useState('result')
   const [copied, setCopied] = useState(false)
+
+  const loadSamplePrompt = () => {
+    setFormData({
+      ...formData,
+      context: 'Write an email to a client explaining a project delay due to supply chain issues. Keep it professional and reassuring.'
+    })
+  }
 
   const generate = async () => {
     if (!formData.context.trim() || formData.context.length < 10) {
@@ -476,18 +584,25 @@ function PromptEngineeringDemo() {
   }
 
   return (
-    <div className="demo-card prompt-demo">
-      <h3>🧠 Prompt Engineering Playground</h3>
-      <p className="demo-description">Advanced LLM prompt techniques demonstrated</p>
-      <p className="use-case">Use case: Content generation, email drafting, report summaries</p>
+    <div className="bg-white border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 p-8 rounded-sm">
+      <h3 className="text-2xl font-bold mb-2 text-gray-900">🧠 Prompt Engineering Playground</h3>
+      <p className="text-base font-medium text-gray-700 mb-1">Advanced LLM prompt techniques demonstrated</p>
+      <p className="text-sm text-gray-500 mb-6">Use case: Content generation, email drafting, report summaries</p>
 
-      <div className="form-grid">
-        <div className="form-group">
-          <label>Content Type:</label>
+      <button
+        onClick={loadSamplePrompt}
+        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
+      >
+        💡 Try Sample Context
+      </button>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Content Type:</label>
           <select
             value={formData.use_case}
             onChange={(e) => setFormData({...formData, use_case: e.target.value})}
-            className="demo-input"
+            className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
           >
             <option value="email">Email</option>
             <option value="blog">Blog Post</option>
@@ -496,12 +611,12 @@ function PromptEngineeringDemo() {
           </select>
         </div>
 
-        <div className="form-group">
-          <label>Tone:</label>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Tone:</label>
           <select
             value={formData.tone}
             onChange={(e) => setFormData({...formData, tone: e.target.value})}
-            className="demo-input"
+            className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
           >
             <option value="professional">Professional</option>
             <option value="technical">Technical</option>
@@ -511,32 +626,33 @@ function PromptEngineeringDemo() {
         </div>
       </div>
 
-      <div className="form-group">
-        <label>Context (what to write about):</label>
+      <div className="mb-4">
+        <label className="block text-sm font-semibold text-gray-700 mb-2">Context (what to write about):</label>
         <textarea
           value={formData.context}
           onChange={(e) => setFormData({...formData, context: e.target.value})}
           placeholder="Example: Write an email to a client explaining a project delay due to supply chain issues. Keep it professional and reassuring."
           rows="3"
-          className="demo-input"
+          className="w-full p-4 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
         />
-        <small className="char-count">{formData.context.length} / 2000 characters</small>
+        <small className="text-gray-500 text-xs">{formData.context.length} / 2000 characters</small>
       </div>
 
-      <div className="form-group technique-selector">
-        <label>Prompt Engineering Technique:</label>
-        <div className="technique-options">
+      <div className="mb-6">
+        <label className="block text-sm font-semibold text-gray-700 mb-3">Prompt Engineering Technique:</label>
+        <div className="space-y-2">
           {Object.keys(techniqueDescriptions).map((tech) => (
-            <label key={tech} className="technique-radio">
+            <label key={tech} className="flex items-start gap-3 p-3 border-2 border-gray-200 rounded-sm hover:border-lavos-orange hover:bg-lavos-orange/5 transition-all cursor-pointer">
               <input
                 type="radio"
                 value={tech}
                 checked={formData.technique === tech}
                 onChange={(e) => setFormData({...formData, technique: e.target.value})}
+                className="mt-1"
               />
-              <span className="technique-label">
-                <strong>{tech.replace('-', ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</strong>
-                <small>{techniqueDescriptions[tech]}</small>
+              <span className="flex-1">
+                <strong className="text-gray-900 block">{tech.replace('-', ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</strong>
+                <small className="text-gray-600 text-sm">{techniqueDescriptions[tech]}</small>
               </span>
             </label>
           ))}
@@ -546,7 +662,7 @@ function PromptEngineeringDemo() {
       <button
         onClick={generate}
         disabled={loading || !formData.context.trim() || formData.context.length < 10}
-        className="demo-button"
+        className="bg-lavos-blue text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
       >
         {loading ? (
           <>
@@ -560,10 +676,10 @@ function PromptEngineeringDemo() {
       </button>
 
       {error && (
-        <div className="result error">
-          <strong>⚠️ {error.message}</strong>
+        <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
+          <strong className="text-red-700 block mb-2">⚠️ {error.message}</strong>
           {error.canRetry && (
-            <button onClick={generate} className="retry-button" disabled={loading}>
+            <button onClick={generate} className="mt-2 bg-red-600 text-white px-4 py-2 rounded-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50" disabled={loading}>
               Try Again
             </button>
           )}
@@ -571,57 +687,57 @@ function PromptEngineeringDemo() {
       )}
 
       {result && (
-        <div className="prompt-results fade-in">
-          <div className="tabs">
+        <div className="mt-6 border-3 border-lavos-black bg-gray-50 rounded-sm overflow-hidden">
+          <div className="flex border-b-3 border-lavos-black">
             <button
-              className={`tab ${activeTab === 'result' ? 'active' : ''}`}
+              className={`flex-1 px-4 py-3 font-bold text-sm transition-all ${activeTab === 'result' ? 'bg-lavos-blue text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
               onClick={() => setActiveTab('result')}
             >
               📝 Generated Content
             </button>
             <button
-              className={`tab ${activeTab === 'prompt' ? 'active' : ''}`}
+              className={`flex-1 px-4 py-3 font-bold text-sm transition-all border-x-2 border-lavos-black ${activeTab === 'prompt' ? 'bg-lavos-orange text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
               onClick={() => setActiveTab('prompt')}
             >
               🔧 Prompt Used
             </button>
             <button
-              className={`tab ${activeTab === 'explanation' ? 'active' : ''}`}
+              className={`flex-1 px-4 py-3 font-bold text-sm transition-all ${activeTab === 'explanation' ? 'bg-lavos-green text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
               onClick={() => setActiveTab('explanation')}
             >
               💡 Technique Explained
             </button>
           </div>
 
-          <div className="tab-content">
+          <div className="p-6">
             {activeTab === 'result' && (
-              <div className="tab-panel">
-                <div className="content-header">
-                  <strong>Technique: {result.technique_name}</strong>
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <strong className="text-gray-900 font-bold">Technique: {result.technique_name}</strong>
                   <button
                     onClick={() => copyToClipboard(result.generated_content)}
-                    className="copy-button"
+                    className="bg-lavos-blue text-white px-3 py-1 border-2 border-lavos-black shadow-brutal-sm text-sm font-bold hover:-translate-y-0.5 transition-all"
                   >
                     {copied ? '✓ Copied!' : '📋 Copy'}
                   </button>
                 </div>
-                <div className="generated-content">{result.generated_content}</div>
+                <div className="bg-white p-4 border-2 border-gray-300 rounded-sm whitespace-pre-wrap text-gray-800 leading-relaxed">{result.generated_content}</div>
               </div>
             )}
 
             {activeTab === 'prompt' && (
-              <div className="tab-panel">
-                <div className="prompt-section">
-                  <strong>System Message (Role Definition):</strong>
-                  <pre className="prompt-code">{result.prompt_used.system}</pre>
+              <div className="space-y-4">
+                <div>
+                  <strong className="block text-gray-900 font-bold mb-2">System Message (Role Definition):</strong>
+                  <pre className="bg-gray-900 text-green-400 p-4 rounded-sm overflow-x-auto text-sm font-mono">{result.prompt_used.system}</pre>
                 </div>
-                <div className="prompt-section">
-                  <strong>User Message (Task Instructions):</strong>
-                  <pre className="prompt-code">{result.prompt_used.user}</pre>
+                <div>
+                  <strong className="block text-gray-900 font-bold mb-2">User Message (Task Instructions):</strong>
+                  <pre className="bg-gray-900 text-green-400 p-4 rounded-sm overflow-x-auto text-sm font-mono">{result.prompt_used.user}</pre>
                 </div>
                 <button
                   onClick={() => copyToClipboard(`System: ${result.prompt_used.system}\n\nUser: ${result.prompt_used.user}`)}
-                  className="copy-button"
+                  className="bg-lavos-orange text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 transition-all"
                 >
                   {copied ? '✓ Copied!' : '📋 Copy Full Prompt'}
                 </button>
@@ -629,12 +745,10 @@ function PromptEngineeringDemo() {
             )}
 
             {activeTab === 'explanation' && (
-              <div className="tab-panel">
-                <div className="explanation-content">
-                  {result.explanation.split('\n').map((line, i) => (
-                    <p key={i}>{line}</p>
-                  ))}
-                </div>
+              <div className="space-y-3">
+                {result.explanation.split('\n').map((line, i) => (
+                  <p key={i} className="text-gray-700 leading-relaxed">{line}</p>
+                ))}
               </div>
             )}
           </div>
