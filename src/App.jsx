@@ -9,7 +9,8 @@ function App() {
       <Hero />
       <StatsSection />
       <Demos />
-      <PortfolioPreview />
+      <ServicesAndPricing />
+      <ContactForm />
       <About />
       <Footer />
     </div>
@@ -38,33 +39,28 @@ function Hero() {
           AI Consultant • Louisville, KY
         </p>
 
-        {/* TERTIARY: Mission statement - subtle */}
+        {/* TERTIARY: Pain-focused value proposition */}
         <p className="text-lg md:text-xl text-white/90 font-medium max-w-2xl text-center">
-          Practical AI tools for real business problems
+          Louisville SMBs: Stop Wasting 10+ Hours/Week on Manual Work
+        </p>
+        <p className="text-base md:text-lg text-white/80 max-w-2xl text-center">
+          I help restaurants, legal firms, and real estate agencies implement practical AI tools that save time and increase revenue — without the tech jargon.
         </p>
 
-        {/* CTAs: Moderate styling, don't compete with H1 */}
-        <nav className="flex gap-6 items-center flex-wrap justify-center mt-8">
+        {/* PRIMARY CTA: Book free assessment */}
+        <div className="mt-8 flex flex-col gap-4 items-center">
           <a
-            href="https://jaspermatters.com"
+            href="https://calendly.com/matthewdscott7/ai-assessment"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-lavos-blue px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-base hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 no-underline"
+            className="bg-lavos-orange text-white px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 no-underline"
           >
-            Portfolio →
+            Book Your Free 1-Hour AI Assessment →
           </a>
-
-          <span className="text-white/40 text-xl">•</span>
-
-          <a
-            href="https://github.com/guitargnarr"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-lavos-green text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold text-base hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 no-underline"
-          >
-            GitHub →
-          </a>
-        </nav>
+          <p className="text-sm text-white/60">
+            Louisville-based • HIPAA-compliant AI • Zero pressure consultation
+          </p>
+        </div>
       </div>
     </header>
   )
@@ -88,7 +84,7 @@ function StatsSection() {
       const progress = step / steps
 
       setCounts({
-        demos: Math.round(4 * progress),
+        demos: Math.round(3 * progress),
         response: Math.round(100 * progress),
         projects: Math.round(8 * progress)
       })
@@ -139,8 +135,6 @@ function Demos() {
           <SentimentDemo />
           <LeadScoringDemo />
           <PhishingDemo />
-          <PromptEngineeringDemo />
-          <JobTrackerDemo />
         </div>
       </div>
     </section>
@@ -515,387 +509,353 @@ function PhishingDemo() {
   )
 }
 
-function PromptEngineeringDemo() {
+function ServicesAndPricing() {
+  return (
+    <section className="py-16 px-6 bg-white">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 border-b-4 border-lavos-orange inline-block pb-2">
+            Services & Pricing
+          </h2>
+          <p className="text-gray-600 text-lg mt-6">
+            Transparent pricing for Louisville businesses
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Free Assessment */}
+          <div className="bg-white border-3 border-lavos-black shadow-brutal p-8 hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold mb-2 text-gray-900">Free Assessment</h3>
+              <div className="text-3xl font-black text-lavos-blue mb-4">$0</div>
+              <p className="text-gray-600 mb-6">1-hour consultation</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>Review your current processes</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>Identify AI opportunities</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>ROI estimates</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>Zero pressure</span>
+              </li>
+            </ul>
+            <a
+              href="https://calendly.com/matthewdscott7/ai-assessment"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center bg-lavos-orange text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+            >
+              Book Now
+            </a>
+          </div>
+
+          {/* Strategy Session */}
+          <div className="bg-lavos-blue text-white border-3 border-lavos-black shadow-brutal-lg p-8 transform -rotate-1">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="text-2xl font-bold mb-2">Strategy Session</h3>
+              <div className="text-3xl font-black mb-4">$500</div>
+              <p className="text-white/90 mb-6">3-hour deep dive</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-orange font-bold">✓</span>
+                <span>Complete process audit</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-orange font-bold">✓</span>
+                <span>Custom AI roadmap</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-orange font-bold">✓</span>
+                <span>Implementation timeline</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-orange font-bold">✓</span>
+                <span>Budget planning</span>
+              </li>
+            </ul>
+            <a
+              href="https://calendly.com/matthewdscott7/ai-assessment"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center bg-white text-lavos-blue px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+            >
+              Schedule
+            </a>
+          </div>
+
+          {/* Ongoing Consulting */}
+          <div className="bg-white border-3 border-lavos-black shadow-brutal p-8 hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-2xl font-bold mb-2 text-gray-900">Monthly Retainer</h3>
+              <div className="text-3xl font-black text-lavos-blue mb-4">$2,500<span className="text-lg">/mo</span></div>
+              <p className="text-gray-600 mb-6">Ongoing partnership</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>10 hours monthly support</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>Custom tool development</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>Priority response time</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-lavos-green font-bold">✓</span>
+                <span>HIPAA-compliant options</span>
+              </li>
+            </ul>
+            <a
+              href="https://calendly.com/matthewdscott7/ai-assessment"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center bg-lavos-green text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 no-underline"
+            >
+              Get Started
+            </a>
+          </div>
+        </div>
+
+        <p className="text-center text-gray-600 mt-12 text-sm">
+          All services include Louisville-based support • HIPAA-compliant AI available • No long-term contracts
+        </p>
+      </div>
+    </section>
+  )
+}
+
+function ContactForm() {
   const [formData, setFormData] = useState({
-    technique: 'zero-shot',
-    use_case: 'email',
-    context: '',
-    tone: 'professional'
+    name: '',
+    email: '',
+    businessType: '',
+    challenge: ''
   })
-  const [result, setResult] = useState(null)
+  const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [activeTab, setActiveTab] = useState('result')
-  const [copied, setCopied] = useState(false)
 
-  const loadSamplePrompt = () => {
-    setFormData({
-      ...formData,
-      context: 'Write an email to a client explaining a project delay due to supply chain issues. Keep it professional and reassuring.'
-    })
-  }
-
-  const generate = async () => {
-    if (!formData.context.trim() || formData.context.length < 10) {
-      setError({ message: 'Please provide at least 10 characters of context' })
-      return
-    }
-
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setLoading(true)
     setError(null)
-    setResult(null)
-    setActiveTab('result')
+    setSubmitted(false)
 
     try {
-      const response = await fetch(`${API_URL}/api/prompt-engineering`, {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.status}`)
+        throw new Error(`Failed to submit: ${response.status}`)
       }
 
       const data = await response.json()
-      setResult(data)
+      setSubmitted(true)
+      setFormData({ name: '', email: '', businessType: '', challenge: '' })
+      setTimeout(() => setSubmitted(false), 8000)
     } catch (err) {
-      setError({
-        message: 'Demo server is waking up (~30 seconds first use). Please try again.',
-        canRetry: true
-      })
+      setError('Failed to send message. Please email matthewdscott7@gmail.com directly.')
     } finally {
       setLoading(false)
     }
   }
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  const techniqueDescriptions = {
-    'zero-shot': 'Direct instruction without examples - fastest approach',
-    'few-shot': 'Include examples to guide output format and style',
-    'chain-of-thought': 'Request step-by-step reasoning for complex tasks',
-    'role-based': 'Assign expert persona for specialized content',
-    'structured': 'Specify exact output format with clear schema'
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
   return (
-    <div className="bg-white border-3 border-lavos-black shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 p-8 rounded-sm">
-      <h3 className="text-2xl font-bold mb-2 text-gray-900">🧠 Prompt Engineering Playground</h3>
-      <p className="text-base font-medium text-gray-700 mb-1">Advanced LLM prompt techniques demonstrated</p>
-      <p className="text-sm text-gray-500 mb-6">Use case: Content generation, email drafting, report summaries</p>
-
-      <button
-        onClick={loadSamplePrompt}
-        className="mb-4 bg-lavos-green text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold text-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200"
-      >
-        💡 Try Sample Context
-      </button>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Content Type:</label>
-          <select
-            value={formData.use_case}
-            onChange={(e) => setFormData({...formData, use_case: e.target.value})}
-            className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
-          >
-            <option value="email">Email</option>
-            <option value="blog">Blog Post</option>
-            <option value="summary">Summary</option>
-            <option value="custom">Custom</option>
-          </select>
+    <section className="py-16 px-6 bg-gray-50">
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 border-b-4 border-lavos-orange inline-block pb-2">
+            Get in Touch
+          </h2>
+          <p className="text-gray-600 text-lg mt-6">
+            Tell me about your biggest challenge - I'll show you how AI can help
+          </p>
         </div>
 
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Tone:</label>
-          <select
-            value={formData.tone}
-            onChange={(e) => setFormData({...formData, tone: e.target.value})}
-            className="w-full p-3 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
-          >
-            <option value="professional">Professional</option>
-            <option value="technical">Technical</option>
-            <option value="casual">Casual</option>
-            <option value="persuasive">Persuasive</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-semibold text-gray-700 mb-2">Context (what to write about):</label>
-        <textarea
-          value={formData.context}
-          onChange={(e) => setFormData({...formData, context: e.target.value})}
-          placeholder="Example: Write an email to a client explaining a project delay due to supply chain issues. Keep it professional and reassuring."
-          rows="3"
-          className="w-full p-4 border-2 border-gray-300 rounded-sm font-sans text-gray-900 focus:outline-none focus:border-lavos-blue focus:ring-2 focus:ring-lavos-blue/20 transition-all"
-        />
-        <small className="text-gray-500 text-xs">{formData.context.length} / 2000 characters</small>
-      </div>
-
-      <div className="mb-6">
-        <label className="block text-sm font-semibold text-gray-700 mb-3">Prompt Engineering Technique:</label>
-        <div className="space-y-2">
-          {Object.keys(techniqueDescriptions).map((tech) => (
-            <label key={tech} className="flex items-start gap-3 p-3 border-2 border-gray-200 rounded-sm hover:border-lavos-orange hover:bg-lavos-orange/5 transition-all cursor-pointer">
+        <form onSubmit={handleSubmit} className="bg-white border-3 border-lavos-black shadow-brutal p-8">
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-gray-900 font-bold mb-2">
+                Your Name *
+              </label>
               <input
-                type="radio"
-                value={tech}
-                checked={formData.technique === tech}
-                onChange={(e) => setFormData({...formData, technique: e.target.value})}
-                className="mt-1"
+                type="text"
+                id="name"
+                name="name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border-2 border-gray-300 focus:border-lavos-blue focus:outline-none"
+                placeholder="John Smith"
               />
-              <span className="flex-1">
-                <strong className="text-gray-900 block">{tech.replace('-', ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</strong>
-                <small className="text-gray-600 text-sm">{techniqueDescriptions[tech]}</small>
-              </span>
-            </label>
-          ))}
-        </div>
-      </div>
+            </div>
 
-      <button
-        onClick={generate}
-        disabled={loading || !formData.context.trim() || formData.context.length < 10}
-        className="bg-lavos-blue text-white px-6 py-3 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 hover:shadow-brutal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm"
-      >
-        {loading ? (
-          <>
-            <svg className="inline w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-            </svg>
-            Generating...
-          </>
-        ) : 'Generate & Explain'}
-      </button>
+            <div>
+              <label htmlFor="email" className="block text-gray-900 font-bold mb-2">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border-2 border-gray-300 focus:border-lavos-blue focus:outline-none"
+                placeholder="john@example.com"
+              />
+            </div>
 
-      {error && (
-        <div className="mt-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
-          <strong className="text-red-700 block mb-2">⚠️ {error.message}</strong>
-          {error.canRetry && (
-            <button onClick={generate} className="mt-2 bg-red-600 text-white px-4 py-2 rounded-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50" disabled={loading}>
-              Try Again
-            </button>
-          )}
-        </div>
-      )}
+            <div>
+              <label htmlFor="businessType" className="block text-gray-900 font-bold mb-2">
+                Business Type *
+              </label>
+              <select
+                id="businessType"
+                name="businessType"
+                required
+                value={formData.businessType}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border-2 border-gray-300 focus:border-lavos-blue focus:outline-none"
+              >
+                <option value="">Select your industry...</option>
+                <option value="restaurant">Restaurant / Food Service</option>
+                <option value="legal">Legal Firm</option>
+                <option value="healthcare">Healthcare / Medical</option>
+                <option value="realestate">Real Estate</option>
+                <option value="finance">Financial Services</option>
+                <option value="retail">Retail</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
 
-      {result && (
-        <div className="mt-6 border-3 border-lavos-black bg-gray-50 rounded-sm overflow-hidden">
-          <div className="flex border-b-3 border-lavos-black">
+            <div>
+              <label htmlFor="challenge" className="block text-gray-900 font-bold mb-2">
+                What's your biggest challenge? *
+              </label>
+              <textarea
+                id="challenge"
+                name="challenge"
+                required
+                value={formData.challenge}
+                onChange={handleChange}
+                rows="4"
+                className="w-full px-4 py-3 border-2 border-gray-300 focus:border-lavos-blue focus:outline-none"
+                placeholder="Example: We spend 15 hours/week manually responding to customer reviews..."
+              />
+            </div>
+
             <button
-              className={`flex-1 px-4 py-3 font-bold text-sm transition-all ${activeTab === 'result' ? 'bg-lavos-blue text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
-              onClick={() => setActiveTab('result')}
+              type="submit"
+              disabled={loading}
+              className="w-full bg-lavos-orange text-white px-8 py-4 border-3 border-lavos-black shadow-brutal font-black text-lg hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-brutal"
             >
-              📝 Generated Content
+              {loading ? (
+                <>
+                  <svg className="inline w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                  </svg>
+                  Sending...
+                </>
+              ) : 'Send Message →'}
             </button>
-            <button
-              className={`flex-1 px-4 py-3 font-bold text-sm transition-all border-x-2 border-lavos-black ${activeTab === 'prompt' ? 'bg-lavos-orange text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
-              onClick={() => setActiveTab('prompt')}
-            >
-              🔧 Prompt Used
-            </button>
-            <button
-              className={`flex-1 px-4 py-3 font-bold text-sm transition-all ${activeTab === 'explanation' ? 'bg-lavos-green text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
-              onClick={() => setActiveTab('explanation')}
-            >
-              💡 Technique Explained
-            </button>
-          </div>
 
-          <div className="p-6">
-            {activeTab === 'result' && (
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <strong className="text-gray-900 font-bold">Technique: {result.technique_name}</strong>
-                  <button
-                    onClick={() => copyToClipboard(result.generated_content)}
-                    className="bg-lavos-blue text-white px-3 py-1 border-2 border-lavos-black shadow-brutal-sm text-sm font-bold hover:-translate-y-0.5 transition-all"
-                  >
-                    {copied ? '✓ Copied!' : '📋 Copy'}
-                  </button>
-                </div>
-                <div className="bg-white p-4 border-2 border-gray-300 rounded-sm whitespace-pre-wrap text-gray-800 leading-relaxed">{result.generated_content}</div>
+            {submitted && (
+              <div className="bg-lavos-green text-white px-6 py-4 border-2 border-lavos-black shadow-brutal-sm font-bold text-center">
+                ✓ Thanks! I'll respond within 24 hours.
               </div>
             )}
 
-            {activeTab === 'prompt' && (
-              <div className="space-y-4">
-                <div>
-                  <strong className="block text-gray-900 font-bold mb-2">System Message (Role Definition):</strong>
-                  <pre className="bg-gray-900 text-green-400 p-4 rounded-sm overflow-x-auto text-sm font-mono">{result.prompt_used.system}</pre>
-                </div>
-                <div>
-                  <strong className="block text-gray-900 font-bold mb-2">User Message (Task Instructions):</strong>
-                  <pre className="bg-gray-900 text-green-400 p-4 rounded-sm overflow-x-auto text-sm font-mono">{result.prompt_used.user}</pre>
-                </div>
-                <button
-                  onClick={() => copyToClipboard(`System: ${result.prompt_used.system}\n\nUser: ${result.prompt_used.user}`)}
-                  className="bg-lavos-orange text-white px-4 py-2 border-2 border-lavos-black shadow-brutal-sm font-bold hover:-translate-y-0.5 transition-all"
-                >
-                  {copied ? '✓ Copied!' : '📋 Copy Full Prompt'}
-                </button>
-              </div>
-            )}
-
-            {activeTab === 'explanation' && (
-              <div className="space-y-3">
-                {result.explanation.split('\n').map((line, i) => (
-                  <p key={i} className="text-gray-700 leading-relaxed">{line}</p>
-                ))}
+            {error && (
+              <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-sm">
+                <strong className="text-red-700 block">⚠️ {error}</strong>
               </div>
             )}
           </div>
-        </div>
-      )}
-    </div>
-  )
-}
+        </form>
 
-function PortfolioPreview() {
-  return (
-    <section className="portfolio-preview">
-      <h2>Proven Work</h2>
-      <p className="section-intro">
-        Technical projects demonstrating AI/ML engineering capabilities
-      </p>
-
-      <div className="portfolio-grid">
-        <PortfolioCard
-          title="JasperMatters"
-          url="https://jaspermatters.com"
-          description="Full-stack ML platform with TensorFlow neural networks, semantic job search, and career insights"
-          tech={["TensorFlow", "React", "FastAPI"]}
-          metrics={["4,800 LOC", "134 Features", "3 ML Models"]}
-          badge="LIVE SITE"
-        />
-
-        <PortfolioCard
-          title="PhishGuard ML"
-          url="https://github.com/guitargnarr/phishguard-ml"
-          description="Production phishing detection API with 7-model ensemble and 2,039 engineered features"
-          tech={["7 Models", "2,039 Features", "38/38 Tests"]}
-          metrics={["<20ms", "FastAPI", "Docker Ready"]}
-          badge="OPEN SOURCE"
-        />
-
-        <PortfolioCard
-          title="Mirador"
-          url="https://github.com/guitargnarr/mirador"
-          description="Privacy-first AI orchestration framework for HIPAA-compliant workflows with 64 specialized agents"
-          tech={["25K LOC", "64 Agents", "Ollama"]}
-          metrics={["100% Local", "HIPAA Ready", "pip install"]}
-          badge="PACKAGED"
-        />
-
-        <PortfolioCard
-          title="Prompt Engineering Showcase"
-          url="https://github.com/guitargnarr/prompt-engineering-showcase"
-          description="Advanced LLM prompt techniques with real production examples. Interactive playground demonstrates zero-shot, few-shot, chain-of-thought, role-based, and structured output prompting"
-          tech={["Zero-Shot", "Few-Shot", "Chain-of-Thought"]}
-          metrics={["5 Techniques", "Live Demo", "Real Examples"]}
-          badge="INTERACTIVE"
-        />
+        <p className="text-center text-gray-600 mt-8 text-sm">
+          Or book a free assessment directly: <a href="https://calendly.com/matthewdscott7/ai-assessment" target="_blank" rel="noopener noreferrer" className="text-lavos-blue font-bold hover:underline">Schedule on Calendly →</a>
+        </p>
       </div>
     </section>
-  )
-}
-
-function PortfolioCard({ title, url, description, tech, metrics, badge }) {
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer" className="portfolio-card">
-      <div className="badge">{badge}</div>
-      <h3>{title}</h3>
-      <p className="description">{description}</p>
-      <div className="tech-tags">
-        {tech.map(t => <span key={t} className="tech-tag">{t}</span>)}
-      </div>
-      {metrics && (
-        <div className="metrics">
-          {metrics.map(m => <span key={m} className="metric">{m}</span>)}
-        </div>
-      )}
-      <span className="view-link">View Project →</span>
-    </a>
   )
 }
 
 function About() {
   return (
-    <section className="about">
-      <h2>About</h2>
-      <div className="about-content">
-        <p>
-          I'm <strong>Matthew Scott</strong>, a Louisville-based AI consultant. I help local businesses
-          and individuals understand and implement AI tools that solve real problems.
-        </p>
-        <p>
-          With 10 years of healthcare IT experience and proven ML engineering capabilities, I focus on
-          practical AI applications - no hype, no inflated promises. Just tools that work.
-        </p>
-        <div className="proof-section">
-          <h3>Why Work With Me</h3>
-          <ul>
-            <li>10 years healthcare IT experience (compliance-aware, HIPAA-familiar)</li>
-            <li>Production ML systems deployed (TensorFlow, not just API wrappers)</li>
-            <li>Privacy-first architecture (local AI, data protection)</li>
-            <li>Louisville-based (local service, understand the market)</li>
-          </ul>
+    <section className="py-16 px-6 bg-white">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 border-b-4 border-lavos-orange inline-block pb-2">
+            Why Work With Me
+          </h2>
         </div>
-        <div className="contact-section">
-          <h3>Get in Touch</h3>
-          <p>Email: <a href="mailto:matthewdscott7@gmail.com">matthewdscott7@gmail.com</a></p>
-          <p className="cta-text">Free 1-hour AI assessment for Louisville businesses</p>
+
+        <div className="prose prose-lg max-w-none">
+          <p className="text-xl text-gray-700 leading-relaxed mb-6">
+            I'm Matthew Scott, a Louisville-based AI consultant with 10 years of healthcare IT experience at Humana. I help local businesses implement practical AI tools that save time and increase revenue—without the tech jargon.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 mt-12">
+            <div className="bg-gray-50 border-2 border-lavos-black p-6">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">✓ HIPAA-Compliant AI</h3>
+              <p className="text-gray-700">
+                10 years building healthcare systems means I understand compliance, privacy, and data security. Perfect for legal firms, medical practices, and financial services.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 border-2 border-lavos-black p-6">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">✓ Louisville Market Knowledge</h3>
+              <p className="text-gray-700">
+                I know the local business landscape—from Bardstown Road restaurants to Highlands law firms. My solutions fit your budget and your city.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 border-2 border-lavos-black p-6">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">✓ No Hype, No Inflated Promises</h3>
+              <p className="text-gray-700">
+                I'll tell you honestly if AI won't solve your problem. Free assessment means you know exactly what you're getting before spending a dollar.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 border-2 border-lavos-black p-6">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">✓ Production Systems, Not Demos</h3>
+              <p className="text-gray-700">
+                I build real tools you can use every day—not just flashy presentations. TensorFlow, FastAPI, HIPAA-compliant infrastructure. The real deal.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  )
-}
-
-function JobTrackerDemo() {
-  return (
-    <div className="demo-card">
-      <h3>📊 Job Application Tracker</h3>
-      <p className="demo-description">Full-stack application management with analytics</p>
-      <p className="use-case">Use case: Enterprise CRUD operations, data visualization, real-time analytics</p>
-
-      <div className="result">
-        <div style={{ marginBottom: '1rem' }}>
-          <strong>✨ Features:</strong>
-          <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-            <li>Full CRUD operations (Create, Read, Update, Delete)</li>
-            <li>Advanced filtering, search, and sorting</li>
-            <li>Interactive data visualization charts</li>
-            <li>Responsive design with Neubrutalism aesthetic</li>
-            <li>FastAPI backend + React frontend</li>
-          </ul>
-        </div>
-
-        <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '8px', color: 'white' }}>
-          <strong style={{ display: 'block', marginBottom: '0.5rem' }}>🎯 Live Demo Available</strong>
-          <p style={{ marginBottom: '1rem', opacity: 0.9 }}>Interactive demo showcasing full-stack development capabilities</p>
-          <a
-            href="https://jobtracker-frontend-psi.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="demo-button"
-            style={{ background: 'white', color: '#667eea', display: 'inline-block', padding: '0.75rem 1.5rem', borderRadius: '6px', textDecoration: 'none', fontWeight: 'bold' }}
-          >
-            Launch Job Tracker →
-          </a>
-        </div>
-
-        <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6c757d' }}>
-          <strong>Tech Stack:</strong> React, FastAPI, Vite, Tailwind CSS v4, Framer Motion
-        </div>
-      </div>
-    </div>
   )
 }
 
